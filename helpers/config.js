@@ -1,5 +1,5 @@
 let config={
-    dbUrl:'postgres://postgres:masterkey@localhost:5432/Ecommerce',
+    dbUrl:'postgres://postgres:masterkey@localhost:5432/PathFinding',
     port:3000
 }
 
