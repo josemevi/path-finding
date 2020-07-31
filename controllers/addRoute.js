@@ -1,4 +1,4 @@
-let db = require ('../helpers/db');
+const db = require ('../helpers/db');
 
 module.exports = function (req,res){
     if(req.body.user_id){
@@ -30,6 +30,7 @@ module.exports = function (req,res){
                 msg:'Could not connect to the DB',
                 status:500
             });
+            obj.done();
         });   
     }else {
         res.send({

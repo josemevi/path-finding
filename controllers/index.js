@@ -1,7 +1,8 @@
 const express = require('express');
-let router = express.Router();
+const router = express.Router();
 
 router.get('/getRoutes', require('./getRoutes'));
+router.get('/getOptimalRoute', require('./getOptimalRoute'));
 router.post('/addUser', require('./AddUser'));
 router.post('/addRoute', require('./addRoute'));
 

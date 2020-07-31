@@ -1,70 +1,9 @@
-const route = ['C','E','A','D'];
+const nodeInfo = require('./nodeInfo');
 var visited = [];
 var actualRoute = [];
 var distanceTraveled = [];
 //used to add Origin node to the route without interfering with the algorithm
 var flag = true;
-const nodeInfo = {            
-                    "O": {
-                        "neigh": ["A", "D"],
-                        "A": 5,
-                        "B": 6,
-                        "C": 5,
-                        "D": 3,
-                        "E": 11,                
-                        'Cstops': "D,C",
-                        'Bstops': "D,B",
-                        'Estops': "A,E"
-                    },
-                    "A": {
-                        "neigh": ["O", "B", "C", "E"],
-                        "O": 5,
-                        "B": 8,
-                        "C": 7,
-                        "D": 8,
-                        "E": 6,                                
-                        "Dstops": "O,D"                        
-                    },
-                    "B": {
-                        "neigh": ["A", "C", "D"],
-                        "O": 6,
-                        "A": 8,
-                        "C": 4,
-                        "D": 3,
-                        "E": 12,                                       
-                        "Ostops": "D,O",
-                        "Estops": "D,E"        
-                    },
-                    "C": {
-                        "neigh": ["A", "B", "D", "E"],
-                        "O": 5,
-                        "A": 7,
-                        "B": 4,
-                        "D": 2,
-                        "E": 8,                                        
-                        "Ostops" : "D,O"  
-                    },
-                    "D": {
-                        "neigh": ["O", "B", "C", "E"],
-                        "O": 3,
-                        "A": 8,
-                        "B": 3,
-                        "C": 2,
-                        "E": 9,                
-                        "Astops": "O,A"
-                    },
-                    "E": {
-                        "neigh": ["A", "C", "D"],
-                        "O": 11,
-                        "A": 6,
-                        "B": 12,
-                        "C": 8,
-                        "D": 9,                                    
-                        "Ostops": "A,O",
-                        "Bstops": "C,B"
-
-                    }
-                };
 //Finds if the shortest path is a neighbor of the actual standing node
 function isNeigh (arr, closeNode, node){
     for(let i = 0; i < arr.length; i++){        
@@ -146,10 +85,38 @@ function nextNode(route){
     //console.log(route, visited, actualRoute, distanceTraveled ,distanceTraveled.reduce(function(acc, val) { return acc + val; }, 0));
 }
 
-while (route.length > 0 || flag){
-    nextNode(route);
+//cleans all the global variables to avoid keeping old data
+function restart (){
+    visited = [];
+    actualRoute = [];
+    distanceTraveled = [];
+    flag = true;
 }
 
-if(route.length == 0 || !flag) {
-    console.log(route, visited, actualRoute, distanceTraveled ,distanceTraveled.reduce(function(acc, val) { return acc + val; }, 0));
+function findPath (route) {
+    //check if the function argument comes null
+    if(route){
+        //checks if there's something inside the array
+        if(route.length > 0){
+            while (route.length > 0 || flag){
+                nextNode(route);
+            }
+            
+            if(route.length == 0 || !flag) {
+                let results = {
+                    routeOrder: visited,
+                    stopsMade: actualRoute,
+                    distanceTraveled: distanceTraveled.reduce(function(acc, val) { return acc + val; }, 0)
+                }
+            restart();
+            return results;
+            }
+        }else {
+            return "No data inside the array provided"
+        }
+    }else {
+        return "No array provided";
+    }   
 }
+
+module.exports = findPath;
