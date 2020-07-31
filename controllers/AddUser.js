@@ -58,7 +58,7 @@ module.exports = function (req,res) {
     }else {
         res.send({
             msg:'Fields empty detected, Please fill all the data',
-            status:500
+            status:400
         });
     }
 };
