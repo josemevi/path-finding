@@ -59,13 +59,70 @@
                                     </ul> <!-- fieldsets -->
                                     <fieldset>
                                         <div class="form-card">
-                                            <h2 class="fs-title">Account Information</h2> <input type="email" name="email" placeholder="Email Id" /> <input type="text" name="uname" placeholder="UserName" /> <input type="password" name="pwd" placeholder="Password" /> <input type="password" name="cpwd" placeholder="Confirm Password" />
-                                        </div> <input type="button" name="next" class="next action-button" value="Next Step" />
+                                            <h2 class="fs-title">Account Information</h2>
+                                            <input ng-model="user.name" type="text" name="fname" placeholder="First Name" /> 
+                                            <input ng-model="user.lastname" type="text" name="lname" placeholder="Last Name" />
+                                            <input ng-model="user.email" type="text" name="email" placeholder="Email" />                                             
+                                            <input ng-model="user.password" type="password" name="pwd" placeholder="Password" /> 
+                                            <input ng-model="user.rPassword" type="password" name="cpwd" placeholder="Confirm Password" />
+                                        </div> 
+                                        <input type="button" name="next" class="next action-button" value="Next Step" />
                                     </fieldset>
                                     <fieldset>
-                                        <div class="form-card">
-                                            <h2 class="fs-title">Personal Information</h2> <input type="text" name="fname" placeholder="First Name" /> <input type="text" name="lname" placeholder="Last Name" /> <input type="text" name="phno" placeholder="Contact No." /> <input type="text" name="phno_2" placeholder="Alternate Contact No." />
-                                        </div> <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="next" class="next action-button" value="Next Step" />
+                                        <!-- <div class="form-card">
+                                            <h2 class="fs-title">Select Stops of Interest</h2>                                             
+                                            <div class="card" style="width: 10rem;">
+                                                <img src="..." class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Card title</h5>
+                                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </div>
+                                            </div>
+                                        </div>  -->
+
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="card-deck justify-content-center">                                                                                   
+                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
+                                                        <img class="card-img-top" src="https://placehold.it/280x140/bb4" alt="Card image cap">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">A</h5>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
+                                                        <img class="card-img-top" src="https://placehold.it/280x140/54a" alt="Card image cap">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">B</h5>
+                                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
+                                                        <img class="card-img-top" src="https://placehold.it/280x140/f0a" alt="Card image cap">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">C</h5>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
+                                                        <img class="card-img-top" src="https://placehold.it/280x140/aa0" alt="Card image cap">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">D</h5>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
+                                                        <img class="card-img-top" src="https://placehold.it/280x140/f00" alt="Card image cap">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">E</h5>
+                                                            
+                                                        </div>
+                                                    </div>                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="next" class="next action-button" value="Next Step" />
                                     </fieldset>
                                     <fieldset>
                                         <div class="form-card">
@@ -75,8 +132,14 @@
                                                 <div class='radio' data-value="paypal"><img src="https://i.imgur.com/jXjwZlj.jpg" width="200px" height="100px"></div> <br>
                                             </div> <label class="pay">Card Holder Name*</label> <input type="text" name="holdername" placeholder="" />
                                             <div class="row">
-                                                <div class="col-9"> <label class="pay">Card Number*</label> <input type="text" name="cardno" placeholder="" /> </div>
-                                                <div class="col-3"> <label class="pay">CVC*</label> <input type="password" name="cvcpwd" placeholder="***" /> </div>
+                                                <div class="col-9"> 
+                                                    <label class="pay">Card Number*</label> 
+                                                    <input type="text" name="cardno" placeholder="" /> 
+                                                </div>
+                                                <div class="col-3"> 
+                                                    <label class="pay">CVC*</label> 
+                                                    <input type="password" name="cvcpwd" placeholder="***" /> 
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-3"> <label class="pay">Expiry Date*</label> </div>

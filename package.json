@@ -8,11 +8,11 @@
   },
   "author": "Jose David Melian Villalobos",
   "license": "ISC",
-  "dependencies": {    
-    "express": "^4.16.2",    
+  "dependencies": {
+    "express": "^4.16.2",
     "pg-promise": "^7.3.2"
   },
-  "devDependencies": { 
+  "devDependencies": {
     "nodemon": "^1.12.1"
   }
 }
