@@ -35,6 +35,7 @@ angular.module('PathFinding', [])
 
    $scope.route = [];
    $scope.optimalRoute = [];
+   $scope.desireStops = [];
    $scope.distanceTravel = 0;
    $scope.distanceStops = [];
    //template functions
@@ -106,13 +107,34 @@ angular.module('PathFinding', [])
     });
 
     $scope.checked = function (letter){
+        //Multi stops eheck
+        $scope.route = [];
         if(!$scope.check[letter]){
+            $scope.check.a = false;
+            $scope.check.b = false;
+            $scope.check.c = false;
+            $scope.check.d = false;
+            $scope.check.e = false;
             $scope.check[letter] = true;
-            $scope.route.push(letter.toUpperCase());  
+            $scope.route.push(letter.toUpperCase());
         }else {
             $scope.check[letter] = false;
-            $scope.route.splice($scope.route.indexOf(letter.toUpperCase()), 1);
+            $scope.route.splice($scope.route.indexOf(letter.toUpperCase(),1));
         }
+        
+        
+              
+       
+        // $scope.route = [];
+        // switch (letter) {
+        //     case 'a':
+        //         $scope.check.a = true;
+        //         $scope.route.push(letter.toUpperCase());
+        //         break; 
+        // }
+        // if(letter == 'a'){
+            
+        // }
         console.log($scope.route);
     }
 
@@ -197,7 +219,8 @@ angular.module('PathFinding', [])
             console.log(response);           
             $scope.optimalRoute = response.data.optimalPath.stopsMade;                
             $scope.distanceTravel = response.data.optimalPath.totalDistanceTraveled;
-            $scope.distanceStops = response.data.optimalPath.distanceTraveled
+            $scope.distanceStops = response.data.optimalPath.distanceTraveled;
+            $scope.desireStops = response.data.optimalPath.routeOrder;
         }, function errorCallback(response) {
             console.log(response);         
         });                   
@@ -242,7 +265,8 @@ angular.module('PathFinding', [])
         }
         $http(data).then(function successCallback(response) {
             console.log(response);
-            alert(response.data.msg);                                                      
+            alert(response.data.msg);
+            $scope.restart();                                                      
         }, function errorCallback(response) {
             console.log(response);         
         });                  

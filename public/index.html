@@ -198,10 +198,11 @@
                                             </div> <br>
                                             <div class="row justify-content-center">
                                                 <div class="col-7 text-center">
-                                                    <i class="fa fa-info-circle modal-button" ng-click="getRoutes()" data-toggle="modal" data-target="#exampleModal"></i>
-                                                    
+                                                    <i class="fa fa-info-circle modal-button" ng-click="getRoutes()" data-toggle="modal" data-target="#exampleModal"></i>                                                    
                                                     <h5>Stops to Made:</h5>
                                                     <h4>{{optimalRoute.join('>')}}</h4>
+                                                    <h5>Desires Stops:</h5>
+                                                    <h4>{{desireStops.join('>')}}</h4>
                                                     <h5>Distance Between Desires Stops (km):</h5>
                                                     <h4>{{distanceStops.join('>')}}</h4>
                                                     <h4>Total Distance Traveled by Bus: {{distanceTravel}}km</h4>

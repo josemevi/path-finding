@@ -43,8 +43,7 @@ function nextNode(route){
         //We start by default from the O node   
         if(visited.length  == 0){
             //First we determined who's the nearest node in the route
-            let closeNode = findClose(route, "O");
-            console.log(closeNode)
+            let closeNode = findClose(route, "O");            
             //Then we determine if the nearest node in the route is a neighbor of the origin
             if(isNeigh(route, closeNode, "O")){
                 //we take out the node of the route and then added this node to the travaled variables
