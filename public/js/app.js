@@ -1,8 +1,6 @@
 angular.module('PathFinding', [])
   .controller('PathFindingController', function($scope, $http) {
 
-  
-
     $scope.user = {
         id: '',
         name: '',
@@ -12,60 +10,138 @@ angular.module('PathFinding', [])
         rPassword: ''
     }
 
-   $scope.check = {
+    $scope.check = {
        a : false,
        b: false,
        c: false,
        d: false,
        e: false
-   }
+    }
 
-   $scope.formFlags = {
-       uCreated: true,
-       rSubmit: true,
-   }
+    $scope.formFlags = {
+        uCreated: true,
+        rSubmit: true,
+    }
 
-   $scope.peopleStops = {
-       A: [],
-       B: [],
-       C: [],
-       D: [],
-       E: []
-   }
+    $scope.peopleStops = {
+        A: [],
+        B: [],
+        C: [],
+        D: [],
+        E: []
+    }
 
-   $scope.route = [];
-   $scope.optimalRoute = [];
-   $scope.desireStops = [];
-   $scope.distanceTravel = 0;
-   $scope.distanceStops = [];
-   //template functions
+    $scope.route = [];
+    $scope.optimalRoute = [];
+    $scope.desireStops = [];
+    $scope.distanceTravel = 0;
+    $scope.distanceStops = [];
+
+    //template functions related
+    //////////////////////////////////////////////////////////////////////////////7
+    var current_fs = null;
+    var next_fs = null;
+
+    $scope.goNext = function (elementId) {
+        current_fs = $(elementId).parent();
+        next_fs = $(elementId).parent().next();
+
+        //Add Class Active
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+        //show the next fieldset
+        next_fs.show();
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+            step: function(now) {
+                // for making fielset appear animation
+                opacity = 1 - now;
+                
+                current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+                });
+                next_fs.css({'opacity': opacity});
+            },
+            duration: 600
+        });
+    }
+
     $(document).ready(function(){
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var opacity;
-
-        $(".next").click(function(){                                                                  
+    
+        $(".next").click(function (){
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
 
             //Add Class Active
             $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-    
+
             //show the next fieldset
             next_fs.show();
             //hide the current fieldset with style
             current_fs.animate({opacity: 0}, {
                 step: function(now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
-                    
-                    current_fs.css({
-                    'display': 'none',
-                    'position': 'relative'
-                    });
-                    next_fs.css({'opacity': opacity});
-                },
-                duration: 600
-            });                                                                     
+                // for making fielset appear animation
+                opacity = 1 - now;
+                
+                current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+                });
+                next_fs.css({'opacity': opacity});
+            },
+        duration: 600
+    });
+        });
+
+        $(".next1").click(function (){
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                // for making fielset appear animation
+                opacity = 1 - now;
+                
+                current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+                });
+                next_fs.css({'opacity': opacity});
+            },
+        duration: 600
+    });
+        });
+
+        $(".next2").click(function (){
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                // for making fielset appear animation
+                opacity = 1 - now;
+                
+                current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+                });
+                next_fs.css({'opacity': opacity});
+            },
+        duration: 600
+    });
         });
         
         $(".previous").click(function(){
@@ -123,8 +199,8 @@ angular.module('PathFinding', [])
         }
         
         
-              
-       
+            
+    
         // $scope.route = [];
         // switch (letter) {
         //     case 'a':
@@ -141,7 +217,10 @@ angular.module('PathFinding', [])
     $scope.restart = function () {
         location.reload();
     }
+    //////////////////////////////////////////////////////////////////////////////7
+    //////////////////////////////////////////////////////////////////////////////7
 
+    //EP implementation
     $scope.addUser = function () {
         let data = {
             method : 'POST',
@@ -161,7 +240,8 @@ angular.module('PathFinding', [])
                         console.log("user created", response.data.user)
                         $scope.user.id = response.data.user.user_id;
                         alert(response.data.msg);
-                        $scope.formFlags.uCreated = false;                        
+                        $scope.formFlags.uCreated = false;
+                        $(".next1").click($scope.goNext(".next1"));                       
                     }else {
                         $scope.formFlags.uCreated = true;
                         console.log("Error", response.data.msg);
@@ -194,7 +274,8 @@ angular.module('PathFinding', [])
                 if(response.data.status == 201){                
                     console.log("route created", response.data.route)
                     alert(response.data.msg);
-                    $scope.formFlags.rSubmit = false;                        
+                    $scope.formFlags.rSubmit = false;
+                    $(".next2").click($scope.goNext(".next2"));                        
                 }else {
                     $scope.formFlags.rSubmit = true;
                     console.log("Error", response.data.msg);
@@ -261,7 +342,7 @@ angular.module('PathFinding', [])
         let data = {
             method : 'DELETE',
             url : 'http://localhost:3000/pathFinding/clearData',
-           
+        
         }
         $http(data).then(function successCallback(response) {
             console.log(response);
@@ -271,7 +352,5 @@ angular.module('PathFinding', [])
             console.log(response);         
         });                  
     }
-        
-
 
 });
