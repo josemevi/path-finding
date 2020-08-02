@@ -11,7 +11,7 @@ module.exports = function (req,res){
                 res.send({
                     msg: 'Routed Created Successfully',
                     route:route,
-                    status:200
+                    status:201
                 });
                 obj.done();                
             }).catch((error) => {

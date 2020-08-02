@@ -2,8 +2,8 @@ const nodeInfo = require('./nodeInfo');
 var visited = [];
 var actualRoute = [];
 var distanceTraveled = [];
-//used to add Origin node to the route without interfering with the algorithm
-var flag = true;
+//used to add Origin node to the route without interfering with the algorithm (Descommment in case we want to calculate the distance to the origin point)
+//var flag = true;
 //Finds if the shortest path is a neighbor of the actual standing node
 function isNeigh (arr, closeNode, node){
     for(let i = 0; i < arr.length; i++){        
@@ -44,6 +44,7 @@ function nextNode(route){
         if(visited.length  == 0){
             //First we determined who's the nearest node in the route
             let closeNode = findClose(route, "O");
+            console.log(closeNode)
             //Then we determine if the nearest node in the route is a neighbor of the origin
             if(isNeigh(route, closeNode, "O")){
                 //we take out the node of the route and then added this node to the travaled variables
@@ -75,10 +76,12 @@ function nextNode(route){
             }
         }
     //When the route have no left nodes we add "O" to return to the origin
-    }else if(flag) {       
-        route.push('O');
-        flag = false;    
     }
+    //Descomment in case we want to calculate the distance to the origin point
+    // else if(flag) {       
+    //     route.push('O');
+    //     flag = false;    
+    // }
     //Descomment to watch in server console the process of route = route provided, visited = route in nearest order,
     //actualRoute = stops mades so far, distanceTraveled = all the distances between visited nodes and
     //distacedTraveled.reduce = distanceTraveled sum
@@ -90,7 +93,8 @@ function restart (){
     visited = [];
     actualRoute = [];
     distanceTraveled = [];
-    flag = true;
+    //Descomment in case we want to calculate the distance to the origin point
+    //flag = true;
 }
 
 function findPath (route) {
@@ -98,7 +102,8 @@ function findPath (route) {
     if(route){
         //checks if there's something inside the array
         if(route.length > 0){
-            while (route.length > 0 || flag){
+            // add || flag in case we want to calculate the distance to the origin point
+            while (route.length > 0){
                 nextNode(route);
             }
             
@@ -106,7 +111,8 @@ function findPath (route) {
                 let results = {
                     routeOrder: visited,
                     stopsMade: actualRoute,
-                    distanceTraveled: distanceTraveled.reduce(function(acc, val) { return acc + val; }, 0)
+                    distanceTraveled: distanceTraveled,
+                    totalDistanceTraveled: distanceTraveled.reduce(function(acc, val) { return acc + val; }, 0)
                 }
             restart();
             return results;

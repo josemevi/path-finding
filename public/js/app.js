@@ -1,106 +1,70 @@
-// let xhr = new XHR();
-// function $(id) {
-//     return document.getElementById(id);
-// };
-// function sendGet(){
-//     if($('getCed').value.trim()!==''){
-//         xhr.get(`../db/getUser/${$('getCed').value.trim()}`,{},{}).then((data)=>{
-//             console.log(data);
-//         });
-//     }
-//     else{
-//         console.log('Value is null');
-//     }
-// };
-// function sendPost(){
-//     if($('ced').value.trim()!==''&&$('name').value.trim()!==''&&$('lastName').value.trim()!==''&&
-//     $('age').value.trim()!==''){
-//         xhr.post(`../db/createUser`,{
-//             ced:    parseInt($('ced').value.trim()),
-//             name:   $('name').value.trim(),
-//             lastname:$('lastName').value.trim(),
-//             age:    parseInt($('age').value.trim())
-//         },{'Content-Type':'application/json'}).then((data)=>{
-//             console.log(data);
-//         }); 
-//     }
-//     else{
-//         console.error('Complete los campos');
-//     } 
-// };
-// /*  Ejemplo basico de una promesa
-//     donde tenemos una funcion a, que llama a una funcion b;
-//     esta funcion b es la definicion de la promesa, la cual recibe un parametro 'msg'
-//     el cual va a verificar si esta vacio o no.
-    
-//     En caso de que este sea distinto de '' la promesa hace resolve lo que lleva al
-//     then dentro de la funcion a, de lo contrario hace reject que lleva al catch
-//     dentro de la funcion a. 
-// */
-// function a (){
-//  let value = $('promInp').value.trim();
-//     b(value).then((data)=>{
-//     console.log(`mensaje ${data} enviada desde promesa B`);
-//  }).catch((errorData)=>{
-//     console.log(`${errorData} enviada de error desde promesa B`);
-//  });
-// }
-// function b (msg){
-//     return new Promise((res,rej)=>{
-//         if(msg.trim()==='')
-//             rej(msg);
-//         else
-//             res(msg);
-//     });
-// }
-// $('promBut').addEventListener('click',a);
-// $('butGet').addEventListener('click',sendGet);
-// $('butPost').addEventListener('click',sendPost);
-
 angular.module('PathFinding', [])
-  .controller('PathFindingController', function($scope, $http) { 
+  .controller('PathFindingController', function($scope, $http) {
 
-    // Display Functions
-    /////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////
+  
+
+    $scope.user = {
+        id: '',
+        name: '',
+        lastname: '',
+        email: '',
+        password: '',
+        rPassword: ''
+    }
+
+   $scope.check = {
+       a : false,
+       b: false,
+       c: false,
+       d: false,
+       e: false
+   }
+
+   $scope.formFlags = {
+       uCreated: true,
+       rSubmit: true,
+   }
+
+   $scope.peopleStops = {
+       A: [],
+       B: [],
+       C: [],
+       D: [],
+       E: []
+   }
+
+   $scope.route = [];
+   $scope.optimalRoute = [];
+   $scope.distanceTravel = 0;
+   $scope.distanceStops = [];
+   //template functions
     $(document).ready(function(){
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;
-        var flag = true;
-        $(".next").click(function(){
 
-  
-            if($scope.user.password && $scope.user.rPassword && $scope.user.name
-                && $scope.user.lastname && $scope.user.email || flag){
-                if ($scope.user.password == $scope.user.rPassword || flag){
-                    current_fs = $(this).parent();
-                    next_fs = $(this).parent().next();
-            
-                    //Add Class Active
-                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-            
-                    //show the next fieldset
-                    next_fs.show();
-                    //hide the current fieldset with style
-                    current_fs.animate({opacity: 0}, {
-                        step: function(now) {
-                            // for making fielset appear animation
-                            opacity = 1 - now;
-                            
-                            current_fs.css({
-                            'display': 'none',
-                            'position': 'relative'
-                            });
-                            next_fs.css({'opacity': opacity});
-                        },
-                        duration: 600
+        $(".next").click(function(){                                                                  
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({opacity: 0}, {
+                step: function(now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+                    
+                    current_fs.css({
+                    'display': 'none',
+                    'position': 'relative'
                     });
-                }else {
-                    alert("Password doesn't math");
-                }
-            }else {
-                alert("Empty Fields");
-            }                    
+                    next_fs.css({'opacity': opacity});
+                },
+                duration: 600
+            });                                                                     
         });
         
         $(".previous").click(function(){
@@ -130,40 +94,160 @@ angular.module('PathFinding', [])
             });
         });
         
-        // $('.radio-group .radio').click(function(){
-        //     $(this).parent().find('.radio').removeClass('selected');
-        //     $(this).addClass('selected');
-        // });
+        $('.radio-group .radio').click(function(){
+            $(this).parent().find('.radio').removeClass('selected');
+            $(this).addClass('selected');
+        });
         
         $(".submit").click(function(){
         return false;
         })
         
-        });
-        /////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////////////////////////////////////////
+    });
 
-        $scope.user = {
-            name: '',
-            lastname: '',
-            email: '',
-            password: '',
-            rPassword: ''
+    $scope.checked = function (letter){
+        if(!$scope.check[letter]){
+            $scope.check[letter] = true;
+            $scope.route.push(letter.toUpperCase());  
+        }else {
+            $scope.check[letter] = false;
+            $scope.route.splice($scope.route.indexOf(letter.toUpperCase()), 1);
         }
+        console.log($scope.route);
+    }
 
-        // $scope.register = function (){
-        //     console.log($scope.user);
-        //     if($scope.user.password && $scope.user.rPassword && $scope.user.name
-        //         && $scope.user.lastname && $scope.user.email){
-        //         if ($scope.user.password == $scope.user.rPassword){
-        //             $scope.nextStep();
-        //         }else {
-        //             alert("Password doesn't math");
-        //         }
-        //     }else {
-        //         alert("Empty Fields");
-        //     }
-        // }
+    $scope.restart = function () {
+        location.reload();
+    }
+
+    $scope.addUser = function () {
+        let data = {
+            method : 'POST',
+            url : 'http://localhost:3000/pathFinding/addUser',
+            data: {
+                'name': $scope.user.name,
+                'lastname': $scope.user.lastname,
+                'email' : $scope.user.email,
+                'password': $scope.user.password
+            }
+        }
+        if($scope.user.password && $scope.user.rPassword && $scope.user.name
+            && $scope.user.lastname && $scope.user.email){
+            if ($scope.user.password == $scope.user.rPassword){
+                $http(data).then(function successCallback(response) {                    
+                    if(response.data.status == 201){                
+                        console.log("user created", response.data.user)
+                        $scope.user.id = response.data.user.user_id;
+                        alert(response.data.msg);
+                        $scope.formFlags.uCreated = false;                        
+                    }else {
+                        $scope.formFlags.uCreated = true;
+                        console.log("Error", response.data.msg);
+                        alert(response.data.msg);                        
+                    }                    
+                }, function errorCallback(response) {
+                    $scope.formFlags.uCreated = true;
+                    console.log(response);         
+                });
+            }else {
+                alert("Password doesn't math");
+            }
+        }else {
+            alert("Empty Fields");
+        }      
+    }
+
+    $scope.submitRoute = function () {
+        let data = {
+            method : 'POST',
+            url : 'http://localhost:3000/pathFinding/addRoute',
+            data: {
+                'user_id': $scope.user.id,
+                'route': $scope.route
+            }
+        }
+        if($scope.user.id){
+            $http(data).then(function successCallback(response) {
+                console.log(response);
+                if(response.data.status == 201){                
+                    console.log("route created", response.data.route)
+                    alert(response.data.msg);
+                    $scope.formFlags.rSubmit = false;                        
+                }else {
+                    $scope.formFlags.rSubmit = true;
+                    console.log("Error", response.data.msg);
+                    alert(response.data.msg);                        
+                }                    
+            }, function errorCallback(response) {
+                $scope.formFlags.rSubmit = true;
+                console.log(response);         
+            });
+            
+        }else {
+            console.log("no user id provided");
+        }   
+    }
+
+    $scope.generateRoute = function () {
+        let data = {
+            method : 'GET',
+            url : 'http://localhost:3000/pathFinding/getOptimalRoute',         
+        }
+        $http(data).then(function successCallback(response) { 
+            console.log(response);           
+            $scope.optimalRoute = response.data.optimalPath.stopsMade;                
+            $scope.distanceTravel = response.data.optimalPath.totalDistanceTraveled;
+            $scope.distanceStops = response.data.optimalPath.distanceTraveled
+        }, function errorCallback(response) {
+            console.log(response);         
+        });                   
+    }
+
+    $scope.getRoutes = function () {
+        let data = {
+            method : 'GET',
+            url : 'http://localhost:3000/pathFinding/getRoutes',         
+        }
+        $http(data).then(function successCallback(response) { 
+            console.log(response);                       
+            for(let i = 0; i < response.data.routes.length; i++){
+                for(let k = 0; k < response.data.routes[i].route.length; k++){                    
+                    if('A' == response.data.routes[i].route[k]){
+                        $scope.peopleStops.A.push(response.data.routes[i].name +' '+ response.data.routes[i].lastname);
+                    }else 
+                    if('B' == response.data.routes[i].route[k]){
+                        $scope.peopleStops.B.push(response.data.routes[i].name +' '+ response.data.routes[i].lastname);
+                    }else
+                    if('C' == response.data.routes[i].route[k]){
+                        $scope.peopleStops.C.push(response.data.routes[i].name +' '+ response.data.routes[i].lastname);
+                    }else
+                    if('D' == response.data.routes[i].route[k]){
+                        $scope.peopleStops.D.push(response.data.routes[i].name +' '+ response.data.routes[i].lastname);
+                    }else
+                    if('E' == response.data.routes[i].route[k]){
+                        $scope.peopleStops.E.push(response.data.routes[i].name +' '+ response.data.routes[i].lastname);
+                    }
+                }
+            }
+        }, function errorCallback(response) {
+            console.log(response);         
+        });           
+    }
+
+    $scope.clearData = function () {
+        let data = {
+            method : 'DELETE',
+            url : 'http://localhost:3000/pathFinding/clearData',
+           
+        }
+        $http(data).then(function successCallback(response) {
+            console.log(response);
+            alert(response.data.msg);                                                      
+        }, function errorCallback(response) {
+            console.log(response);         
+        });                  
+    }
+        
 
 
 });
