@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start" : "node index.js"
+    "start": "node index.js"
   },
   "author": "Jose David Melian Villalobos",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.2",
-    "pg-promise": "^7.3.2"
+    "pg-promise": "^7.3.2",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"

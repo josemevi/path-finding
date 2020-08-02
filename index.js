@@ -14,6 +14,9 @@ app.use(express.urlencoded({
   	extended: false
 }));
 
+var favicon = require('serve-favicon');
+
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
 
 //CORS Headers
 app.all('/*', function(req, res, next) {
