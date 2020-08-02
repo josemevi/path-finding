@@ -4,14 +4,13 @@ const pathFinding = require ('../helpers/findPath');
 module.exports = function (req,res){    
     let routesArr = [];
     db.connect().then((obj) => {
-        obj.any('SELECT route from user_routes',[]).then((routes) => {                        
+        obj.any('SELECT route FROM user_routes',[]).then((routes) => {                                           
             if(routes){
                 for(let i = 0; i < routes.length; i++){
-                    if(routes[i].route){
-                        let items = routes[i].route.split(",");
-                        for(let k = 0; k < items.length; k++){
-                            if(routesArr.indexOf(items[k]) == -1){
-                                routesArr.push(items[k]);
+                    if(routes[i].route.length > 0){                     
+                        for(let k = 0; k < routes[i].route.length; k++){                     
+                            if(routesArr.indexOf(routes[i].route[k]) == -1){
+                                routesArr.push(routes[i].route[k]);
                             }                                                        
                         }                        
                     }                                

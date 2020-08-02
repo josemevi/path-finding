@@ -1,15 +1,49 @@
+.card-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 25px;
+    cursor: pointer;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+  }
+  
+  .card-container:hover {
+    transform: scale(1.05);
+  }
+
+  input[type="button"]:disabled {
+    color:rgba(220, 220, 220, 0.6) !important;
+  }
+
+  .modal-button {
+    color: skyblue;
+    font-size: 50px;
+    cursor: pointer;
+  }
+
+/* Template CSS */
 * {
     margin: 0;
     padding: 0
 }
 
 html {
-    height: 100%
+    background: linear-gradient(120deg, #FF4081, #81D4FA) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
+
 
 #grad1 {
     background-color:  #9C27B0;
-    background-image: linear-gradient(120deg, #FF4081, #81D4FA)
+    background-image: linear-gradient(120deg, #FF4081, #81D4FA);
+    background-size: cover;
+
 }
 
 #msform {

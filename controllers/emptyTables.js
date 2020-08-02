@@ -5,17 +5,17 @@ module.exports = function (req,res){
         req.body.route = [];
     }
     db.connect().then((obj) => {
-        obj.any('SELECT user_routes.user_id, user_routes.route, users.name, users.lastname FROM user_routes INNER JOIN users ON user_routes.user_id = users.user_id',[]).then((routes) => {
+        obj.any('TRUNCATE TABLE user_routes, users',[]).then(() => {            
             res.send({
-                routes:routes,
+                msg:'Data Cleared',
                 status:200
             });
-            obj.done();                
+            obj.done();
         }).catch((error) => {
             console.log(error);
             res.send({
                 error:error,
-                msg:'Could not retrieve routes list',
+                msg:'Could not clear data',
                 status:500
             });
             obj.done();    
@@ -28,5 +28,5 @@ module.exports = function (req,res){
             status:500
         });
         obj.done();
-    });   
-}
+    });
+}  

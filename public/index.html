@@ -8,13 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!-- Material Icon -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- font awesome Icon -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <!-- template resources  -->
-    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 
     <link rel="stylesheet" href="./styles/styles.css">
@@ -45,14 +42,14 @@
             <div class="row justify-content-center mt-0">
                 <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
                     <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                        <h2><strong>Sign Up Your User Account</strong></h2>
-                        <p>Fill all form field to go to next step</p>
+                        <h2><strong>Bus Tour</strong></h2>
+                        <p>Fill all form field to start the adventure!</p>
                         <div class="row">
                             <div class="col-md-12 mx-0">
                                 <form id="msform">
                                     <!-- progressbar -->
                                     <ul id="progressbar">
-                                        <li class="active" id="account"><strong>Creating Account</strong></li>
+                                        <li class="active " id="account"><strong>Creating Account</strong></li>
                                         <li id="personal"><strong>Bus Stops of Interest</strong></li>
                                         <li id="payment"><strong>Payment</strong></li>
                                         <li id="confirm"><strong>Assigned Route</strong></li>
@@ -64,72 +61,90 @@
                                             <input ng-model="user.lastname" type="text" name="lname" placeholder="Last Name" />
                                             <input ng-model="user.email" type="text" name="email" placeholder="Email" />                                             
                                             <input ng-model="user.password" type="password" name="pwd" placeholder="Password" /> 
-                                            <input ng-model="user.rPassword" type="password" name="cpwd" placeholder="Confirm Password" />
-                                        </div> 
-                                        <input type="button" name="next" class="next action-button" value="Next Step" />
+                                            <input ng-model="user.rPassword" type="password" name="cpwd" placeholder="Confirm Password" />                                            
+                                        </div>
+                                        <div class="h-100 w-100 align-items-center">
+                                            <button type="button" class="btn btn-success" ng-click="addUser()">Register</button>
+                                        </div><br>
+                                        <input type="button" name="next" class="next action-button" value="Next Step" ng-disabled="formFlags.uCreated"/>
                                     </fieldset>
-                                    <fieldset>
-                                        <!-- <div class="form-card">
-                                            <h2 class="fs-title">Select Stops of Interest</h2>                                             
-                                            <div class="card" style="width: 10rem;">
-                                                <img src="..." class="card-img-top" alt="...">
-                                                <div class="card-body">
-                                                  <h5 class="card-title">Card title</h5>
-                                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                                </div>
-                                            </div>
-                                        </div>  -->
-
+                                    <fieldset>                            
                                         <div class="container">
                                             <div class="row">
-                                                <div class="card-deck justify-content-center">                                                                                   
-                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
-                                                        <img class="card-img-top" src="https://placehold.it/280x140/bb4" alt="Card image cap">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">A</h5>
-                                                            
+                                                <div class="card-deck h-100 w-100 justify-content-center">
+                                                    <div class="card-container" ng-click="checked('a')">
+                                                        <div class="card mb-4" style="min-width: 16rem; max-width: 16rem;">
+                                                            <img width="280" height="500" class="card-img-top" src="https://images.unsplash.com/photo-1534260933201-688b892637f1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=581&q=80" alt="Card image cap">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">A</h5>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input position-static" type="checkbox" ng-model="check.a">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
-                                                        <img class="card-img-top" src="https://placehold.it/280x140/54a" alt="Card image cap">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">B</h5>
-                                                        
+                                                    <div class="card-container" ng-click="checked('b')">
+                                                        <div class="card mb-4" style="min-width: 16rem; max-width: 16rem;">
+                                                            <img width="280" height="500" class="card-img-top" src="https://images.unsplash.com/photo-1594751125236-040863ee3d36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="Card image cap">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">B</h5>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input position-static" type="checkbox" ng-model="check.b">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
-                                                        <img class="card-img-top" src="https://placehold.it/280x140/f0a" alt="Card image cap">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">C</h5>
-                                                            
+                                                    <div class="card-container" ng-click="checked('c')">
+                                                        <div class="card mb-4" style="min-width: 16rem; max-width: 16rem;">
+                                                            <img width="280" height="500" class="card-img-top" src="https://images.unsplash.com/photo-1507517016773-31d98634e21b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="Card image cap">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">C</h5>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input position-static" type="checkbox" ng-model="check.c">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
-                                                        <img class="card-img-top" src="https://placehold.it/280x140/aa0" alt="Card image cap">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">D</h5>
-                                                            
+                                                    <div class="card-container" ng-click="checked('d')">
+                                                        <div class="card mb-4" style="min-width: 16rem; max-width: 16rem;">
+                                                            <img width="280" height="500" class="card-img-top" src="https://images.unsplash.com/photo-1533577083121-c9bd0b0f32fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80" alt="Card image cap">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">D</h5>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input position-static" type="checkbox" ng-model="check.d">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card mb-4" style="min-width: 10rem; max-width: 10rem;">
-                                                        <img class="card-img-top" src="https://placehold.it/280x140/f00" alt="Card image cap">
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">E</h5>
-                                                            
+                                                    <div class="card-container" ng-click="checked('e')">
+                                                        <div class="card mb-4" style="min-width: 16rem; max-width: 16rem;">
+                                                            <img width="280" height="500" class="card-img-top" src="https://images.unsplash.com/photo-1521066067162-2c0988e589c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80" alt="Card image cap">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">E</h5>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input position-static" type="checkbox" ng-model="check.e">
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="next" class="next action-button" value="Next Step" />
+                                        <div class="h-100 w-100 align-items-center">
+                                            <button type="button" class="btn btn-success" ng-disabled="!check.a && !check.b && !check.c && !check.d && !check.e" ng-click="submitRoute()">
+                                                Submit
+                                            </button>
+                                        </div><br>
+                                        <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
+                                        <input type="button" name="next" class="next action-button" value="Next Step" ng-disabled="formFlags.rSubmit" />
                                     </fieldset>
                                     <fieldset>
                                         <div class="form-card">
                                             <h2 class="fs-title">Payment Information</h2>
-                                            <div class="radio-group">
+                                            <div class="radio-group">                                           
                                                 <div class='radio' data-value="credit"><img src="https://i.imgur.com/XzOzVHZ.jpg" width="200px" height="100px"></div>
-                                                <div class='radio' data-value="paypal"><img src="https://i.imgur.com/jXjwZlj.jpg" width="200px" height="100px"></div> <br>
+                                                <div class='radio' data-value="paypal"><img src="https://i.imgur.com/jXjwZlj.jpg" width="200px" height="100px"></div>                                
+                                                <br>
                                             </div> <label class="pay">Card Holder Name*</label> <input type="text" name="holdername" placeholder="" />
                                             <div class="row">
                                                 <div class="col-9"> 
@@ -159,22 +174,46 @@
                                                         <option>December</option>
                                                     </select> <select class="list-dt" id="year" name="expyear">
                                                         <option selected>Year</option>
+                                                        <option>2020</option>
+                                                        <option>2021</option>
+                                                        <option>2022</option>
+                                                        <option>2023</option>
+                                                        <option>2024</option>
+                                                        <option>2025</option>
+                                                        <option>2026</option>
+                                                        <option>2027</option>
+                                                        <option>2028</option>
+                                                        <option>2029</option>
+                                                        <option>2030</option>                                             
                                                     </select> </div>
                                             </div>
-                                        </div> <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> <input type="button" name="make_payment" class="next action-button" value="Confirm" />
+                                        </div> <input type="button" name="previous" class="previous action-button-previous" value="Previous" /> 
+                                        <input type="button" name="make_payment" class="next action-button" value="Confirm" ng-click="generateRoute()"/>
                                     </fieldset>
                                     <fieldset>
                                         <div class="form-card">
                                             <h2 class="fs-title text-center">Success !</h2> <br><br>
                                             <div class="row justify-content-center">
-                                                <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image"> </div>
-                                            </div> <br><br>
+                                                <div class="col"> <img width="500" height="333" src="https://images.unsplash.com/photo-1546955870-9fc9e5534349?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80" class="fit-image"> </div>
+                                            </div> <br>
                                             <div class="row justify-content-center">
                                                 <div class="col-7 text-center">
-                                                    <h5>You Have Successfully Signed Up</h5>
+                                                    <i class="fa fa-info-circle modal-button" ng-click="getRoutes()" data-toggle="modal" data-target="#exampleModal"></i>
+                                                    
+                                                    <h5>Stops to Made:</h5>
+                                                    <h4>{{optimalRoute.join('>')}}</h4>
+                                                    <h5>Distance Between Desires Stops (km):</h5>
+                                                    <h4>{{distanceStops.join('>')}}</h4>
+                                                    <h4>Total Distance Traveled by Bus: {{distanceTravel}}km</h4>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="h-100 w-100 align-items-center">
+                                            <button type="button" ng-click="clearData()" type="button" class="btn btn-danger">
+                                                Clear All Data
+                                            </button>
+                                        </div> <br>                                     
+                                        <input ng-click="restart()" type="button" class="action-button-previous" value="Restart" />
                                     </fieldset>
                                 </form>
                             </div>
@@ -183,8 +222,54 @@
                 </div>
             </div>
         </div>
-        
-
+        <!-- Info  Modal  -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Stops Requested Info</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Stops</th>
+                            <th>Requested By</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th>A</th>
+                            <td>{{peopleStops.A.join(", ")}}</td>
+                          </tr>
+                          <tr>
+                            <th>B</th>
+                            <td>{{peopleStops.B.join(", ")}}</td>
+                          </tr>
+                          <tr>
+                            <th>C</th>
+                            <td>{{peopleStops.C.join(", ")}}</td>
+                          </tr>
+                          <tr>
+                            <th>D</th>
+                            <td>{{peopleStops.D.join(", ")}}</td>
+                          </tr>
+                          <tr>
+                            <th>E</th>
+                            <td>{{peopleStops.E.join(", ")}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>             
+                </div>
+              </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
