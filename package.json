@@ -4,7 +4,8 @@
   "description": "Simple Path Finding exercise, study purposes only",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start" : "node index.js"
   },
   "author": "Jose David Melian Villalobos",
   "license": "ISC",

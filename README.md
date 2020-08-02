@@ -14,5 +14,5 @@ npm run dev
 
 Or run normally with:
 ``
-node index.js
+npm start
 ``
