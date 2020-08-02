@@ -1,6 +1,9 @@
 angular.module('PathFinding', [])
   .controller('PathFindingController', function($scope, $http) {
 
+    //URL of the API for local use change to http://localhost:3000/pathFinding/
+    $scope.url = 'https://bus-path-finding.herokuapp.com/pathFinding/'
+
     $scope.user = {
         id: '',
         name: '',
@@ -208,7 +211,7 @@ angular.module('PathFinding', [])
     $scope.addUser = function () {
         let data = {
             method : 'POST',
-            url : 'http://localhost:3000/pathFinding/addUser',
+            url : $scope.url+'addUser',
             data: {
                 'name': $scope.user.name,
                 'lastname': $scope.user.lastname,
@@ -246,7 +249,7 @@ angular.module('PathFinding', [])
     $scope.submitRoute = function () {
         let data = {
             method : 'POST',
-            url : 'http://localhost:3000/pathFinding/addRoute',
+            url : $scope.url+'addRoute',
             data: {
                 'user_id': $scope.user.id,
                 'route': $scope.route
@@ -278,7 +281,7 @@ angular.module('PathFinding', [])
     $scope.generateRoute = function () {
         let data = {
             method : 'GET',
-            url : 'http://localhost:3000/pathFinding/getOptimalRoute',         
+            url : $scope.url+'getOptimalRoute',         
         }
         $http(data).then(function successCallback(response) { 
             console.log(response);           
@@ -294,7 +297,7 @@ angular.module('PathFinding', [])
     $scope.getRoutes = function () {
         let data = {
             method : 'GET',
-            url : 'http://localhost:3000/pathFinding/getRoutes',         
+            url : $scope.url+'getRoutes',         
         }
         $http(data).then(function successCallback(response) { 
             console.log(response);                       
@@ -325,7 +328,7 @@ angular.module('PathFinding', [])
     $scope.clearData = function () {
         let data = {
             method : 'DELETE',
-            url : 'http://localhost:3000/pathFinding/clearData',
+            url : $scope.url+'clearData',
         
         }
         $http(data).then(function successCallback(response) {
