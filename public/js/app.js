@@ -204,6 +204,14 @@ angular.module('PathFinding', [])
     $scope.restart = function () {
         location.reload();
     }
+
+    $scope.clearPeopleStops = function (){
+        $scope.peopleStops.A = [];
+        $scope.peopleStops.B = [];
+        $scope.peopleStops.C = [];
+        $scope.peopleStops.D = [];
+        $scope.peopleStops.E = [];
+    }
     //////////////////////////////////////////////////////////////////////////////7
     //////////////////////////////////////////////////////////////////////////////7
 
@@ -294,13 +302,15 @@ angular.module('PathFinding', [])
         });                   
     }
 
+
     $scope.getRoutes = function () {
         let data = {
             method : 'GET',
             url : $scope.url+'getRoutes',         
         }
         $http(data).then(function successCallback(response) { 
-            console.log(response);                       
+            console.log(response);
+            $scope.clearPeopleStops();                       
             for(let i = 0; i < response.data.routes.length; i++){
                 for(let k = 0; k < response.data.routes[i].route.length; k++){                    
                     if('A' == response.data.routes[i].route[k]){
