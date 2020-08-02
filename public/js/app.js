@@ -183,7 +183,6 @@ angular.module('PathFinding', [])
     });
 
     $scope.checked = function (letter){
-        //Multi stops eheck
         $scope.route = [];
         if(!$scope.check[letter]){
             $scope.check.a = false;
@@ -197,21 +196,6 @@ angular.module('PathFinding', [])
             $scope.check[letter] = false;
             $scope.route.splice($scope.route.indexOf(letter.toUpperCase(),1));
         }
-        
-        
-            
-    
-        // $scope.route = [];
-        // switch (letter) {
-        //     case 'a':
-        //         $scope.check.a = true;
-        //         $scope.route.push(letter.toUpperCase());
-        //         break; 
-        // }
-        // if(letter == 'a'){
-            
-        // }
-        console.log($scope.route);
     }
 
     $scope.restart = function () {
